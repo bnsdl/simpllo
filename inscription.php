@@ -8,6 +8,7 @@
   <?php
 
   include 'header.php';
+  echo "<div id='bienvenue'><p>Vous souhaitez créer un compte ? C'est par ici !</p></div>"
 
 
   ?>
@@ -44,6 +45,20 @@
   </div>
 </body>
 <style media="screen">
+
+#bienvenue {
+  /*margin: 50px auto;*/
+  padding: 100px 0;
+  font-size: 2em;
+  text-align: center;
+  width: 100%;
+  background: #0981d9;
+}
+
+#bienvenue p {
+  width: 750px;
+  margin: 0 auto;
+}
 
 #header {
   display: none;

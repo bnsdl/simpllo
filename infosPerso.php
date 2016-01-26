@@ -32,6 +32,9 @@ $idUser = $_SESSION['user'];
 
   ?>
   <div id="container">
+    <div id="title">
+      Modifier vos informations personnelles:
+    </div>
     <p id="login">
       <label for="champLogin">Login</label>
       <?php echo "<input id='champLogin' class='inputForm' value='".$user['pseudo']."'></input>"?>
@@ -82,7 +85,18 @@ label {
 }
 
 #container {
-  width: 400px;
+  width: 500px;
+  padding: 0px;
+}
+
+#title {
+  padding: 20px;
+  text-align: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom: 1px solid black;
+  font-size: 1.2em;
+  background: #0981d9;
 }
 
 #champPwd2 {
@@ -99,7 +113,14 @@ label {
 }
 
 .btnInfos {
-
+  background: #f59740;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: cell;
+  padding: 5px;
+  color: rgb(57, 58, 68);
+  font-size: 1.1em;
+  margin-left: 20px;
 }
 
 </style>

@@ -9,10 +9,10 @@
       <?php
 
       if (isset($_SESSION['user'])){
-        echo "<li style='cursor:pointer; padding:7px' class='home'><a onclick='redirect(".$_SESSION['user'].")'>Simpllo</a>";
+        echo "<li style='cursor:pointer; padding:7px' id='home'><a onclick='redirect(".$_SESSION['user'].")'>Simpllo</a>";
       }
       else {
-        echo "<li style='cursor:pointer; padding:7px' class='home'><a onclick='redirect()'>Simpllo</a>";
+        echo "<li style='cursor:pointer; padding:7px' id='home'><a onclick='redirect()'>Simpllo</a>";
       }
 
       ?>
@@ -39,6 +39,10 @@
   font-family: helvetica;
 }
 
+#home {
+  font-size: 1.5em;
+}
+
 header{
   border: 1px solid black;
   padding: 20px 10px;
@@ -59,11 +63,6 @@ li{
   font-size: 1.1em;
 }
 
-.home {
-  font-size: 1.5em;
-  border: 1px solid black;
-  border-radius: 100%;
-}
 
 #menu {
   display: none;
@@ -81,7 +80,7 @@ li{
 #container {
   display: block;
   width: 320px;
-  margin: 100px auto;
+  margin: 50px auto;
   padding: 1em;
   border-radius: 1em;
   border: 1px solid black;
@@ -112,8 +111,12 @@ label {
   font-size: 1.2em;
   border: 1px solid black;
   border-radius: 5px;
-  background: white;
+  background: #2fab09;
   cursor: pointer;
+}
+
+#bouton:hover {
+  background: #4bc326;
 }
 
 

@@ -8,7 +8,7 @@
   <?php
 
   include 'header.php';
-  echo "<p id='bienvenue'>Bienvenue sur Simpllo, le gestionnaire de projets !</p>"
+  echo "<div id='bienvenue'><p>Bienvenue sur Simpllo, le gestionnaire de projets !</p></div>"
   ?>
   <form action="login.php" method="post" id="container">
     <p id="login">
@@ -33,10 +33,17 @@
 <style media="screen">
 
 #bienvenue {
-  margin: 50px auto;
+  /*margin: 50px auto;*/
+  padding: 100px 0;
   font-size: 2em;
   text-align: center;
-  width: 800px;
+  width: 100%;
+  background: #0981d9;
+}
+
+#bienvenue p {
+  width: 750px;
+  margin: 0 auto;
 }
 
 #header {
@@ -45,6 +52,7 @@
 
 
 #inscription {
+  margin-top: -10px;
   text-align: center;
 }
 
