@@ -79,7 +79,8 @@ if (isset($_SESSION['user']) === false ){
 
 </body>
 <style media="screen">
-
+body {
+}
 .inputTaches {
   display: inline-block;
 }
@@ -111,7 +112,13 @@ if (isset($_SESSION['user']) === false ){
 }
 
 .btnDelTable{
-  /*display: none;*/
+  background: #f59740;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: cell;
+  padding: 5px;
+  color: rgb(57, 58, 68);
+  font-size: 1.1em;
   float: right;
   position: relative;
   bottom: 28px;
@@ -250,21 +257,25 @@ function refreshView() {
 document.addEventListener("drag", function( event ) {
 }, false);
 
+var offX;
+var offY;
+
 document.addEventListener("dragstart", function( event ) {
   // store a ref. on the dragged elem
   dragged = event.target;
-  // make it half transparent
-  event.target.style.opacity = .5;
+  offX = event.offsetX;
+  offY = event.offsetY;
 }, false);
 
-document.addEventListener("dragend", function( event ) {
-  // reset the transparency
-  event.target.style.opacity = "";
-}, false);
+// document.addEventListener("dragend", function( event ) {
+//   // reset the transparency
+//   event.target.style.opacity = "";
+// }, false);
 
 /* events fired on the drop targets */
 document.addEventListener("dragover", function( event ) {
   // prevent default to allow drop
+
   event.preventDefault();
 }, false);
 
@@ -275,18 +286,21 @@ function drop(id){
   element = document.getElementById(id);
 }
 
+
 document.addEventListener('drop', function(e) {
   e.preventDefault();
-  modifStyle(event.clientX, event.clientY, element);
-  coordonnees(event.clientX, event.clientY, element.id);
+  var x = event.clientX - offX;
+  var y = event.clientY - offY;
+  modifStyle(x, y, element);
+  coordonnees(x, y, element.id);
+
   // console.log('Vous avez bien déposé votre élément !');
 }, false);
 
 function modifStyle(x, y , element){
-  // console.log(element.id);
   element.style.position = 'absolute';
-  element.style.left = (x-20) + 'px';
-  element.style.top = (y-20) + 'px';
+  element.style.left = x + 'px';
+  element.style.top = y + 'px';
 }
 
 function coordonnees(x, y , id){

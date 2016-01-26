@@ -19,7 +19,7 @@ if (isset($_SESSION['user']) === false ){
 
   ?>
   <div style='width:300px;display:inline-block'>
-    <p>Mes projets:</p>
+    <p style='margin:20px; font-size:1.2em'>Mes projets:</p>
     <?php
     try
     {
@@ -28,11 +28,13 @@ if (isset($_SESSION['user']) === false ){
       die('Erreur : '.$e->getMessage() );
     }
 
+    //gère le contenu de création des projets
+
     $requete = "SELECT * FROM pr WHERE `idUser` =".$idUser." AND `type` = ''";
     $resultats = $connexion->query($requete);
     while ($project = $resultats->fetch() ){
-      echo "<div class='projets' id='".$project['id']."' style='cursor:pointer' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
-      echo "<div onclick='joinProject(".$project['id'].")'>".$project['name']."</div>";
+      echo "<div class='projets' id='".$project['id']."' onclick='joinProject(".$project['id'].")' style='cursor:pointer; margin:20px' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
+      echo "<p style='display:inline-block' >".$project['name']."</p>";
       echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
       echo "</div>";
     }
@@ -50,11 +52,14 @@ if (isset($_SESSION['user']) === false ){
     <div id="drops">
       <div id='dropper1' class="dropzone" style='background:rgb(240, 50, 50)'><h3>Prioritaires</h3>
         <?php
+
+        //gère le contenu du panier 'prio'
+
         $requete = "SELECT * FROM pr WHERE `idUser` =".$idUser." AND `type` = 'prio'";
         $resultats = $connexion->query($requete);
         while ($project = $resultats->fetch() ){
-          echo "<div class='projets' id='".$project['id']."' style='cursor:pointer' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
-          echo "<div onclick='joinProject(".$project['id'].")'>".$project['name']."</div>";
+          echo "<div class='projets' id='".$project['id']."' style='cursor:pointer'  onclick='joinProject(".$project['id'].")' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
+          echo "<p style='display:inline-block'>".$project['name']."</p>";
           echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
           echo "</div>";
         }
@@ -63,11 +68,14 @@ if (isset($_SESSION['user']) === false ){
       </div>
       <div id='dropper2' class="dropzone" style='background:rgb(47, 153, 198)'><h3>Standards</h3>
         <?php
+
+        //gère le contenu du panier 'standard'
+
         $requete = "SELECT * FROM pr WHERE `idUser` =".$idUser." AND `type` = 'standard'";
         $resultats = $connexion->query($requete);
         while ($project = $resultats->fetch() ){
-          echo "<div class='projets' id='".$project['id']."' style='cursor:pointer' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
-          echo "<div onclick='joinProject(".$project['id'].")'>".$project['name']."</div>";
+          echo "<div class='projets' id='".$project['id']."' style='cursor:pointer' onclick='joinProject(".$project['id'].")' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
+          echo "<p style='display:inline-block' >".$project['name']."</p>";
           echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
           echo "</div>";
         }
@@ -76,11 +84,14 @@ if (isset($_SESSION['user']) === false ){
       </div>
       <div id='dropper3' class="dropzone" style='background:rgb(50, 240, 103)'><h3>Patchworks</h3>
         <?php
+
+        //gère le contenu du panier 'patchwork'
+
         $requete = "SELECT * FROM pr WHERE `idUser` =".$idUser." AND `type` = 'patchwork'";
         $resultats = $connexion->query($requete);
         while ($project = $resultats->fetch() ){
-          echo "<div class='projets' id='".$project['id']."' style='cursor:pointer' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
-          echo "<div onclick='joinProject(".$project['id'].", 1)'>".$project['name']."</div>";
+          echo "<div class='projets' id='".$project['id']."' style='cursor:pointer' onclick='joinProject(".$project['id'].", 1)' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
+          echo "<p style='display:inline-block' >".$project['name']."</p>";
           echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
           echo "</div>";
           echo "</div>";
@@ -90,10 +101,12 @@ if (isset($_SESSION['user']) === false ){
         ?>
       </div>
     </div>
+  </div>
   </body>
   <style media="screen">
 
   .dropzone {
+    padding-top: 10px;
     width: 200px;
     min-height: 200px;
     border: 1px solid black;
@@ -103,9 +116,11 @@ if (isset($_SESSION['user']) === false ){
 
   .projets {
     border:1px solid black;
+    border-radius: 5px;
     padding: 10px;
     width: 100px;
-    margin: 20px;
+    margin: 20px auto;
+    background: white;
   }
 
   #btns {
@@ -123,8 +138,16 @@ if (isset($_SESSION['user']) === false ){
   }
 
   .btnDelProject {
+    cursor: cell;
+    display: inline-block;
+    background: #f59740;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: -7px;
     float: right;
-    margin-top: -20px;
+    padding: 5px;
+    color: rgb(57, 58, 68);
+    font-size: 1.1em;
   }
 
   #drops {

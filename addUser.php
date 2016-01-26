@@ -1,7 +1,7 @@
 <?php
 
 $login = $_POST["log"];
-$pwd = $_POST["pwd"];
+$pwd = crypt($_POST["pwd"], "$2a$");
 $prenom = $_POST["pr"];
 $name = $_POST["name"];
 $mail = $_POST["mail"];

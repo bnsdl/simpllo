@@ -1,6 +1,6 @@
 <?php
 
-$pwd = $_POST["pwd"];
+$pwd = crypt($_POST["pwd"], "$2a$");
 $log = $_POST["login"];
 
 try
@@ -22,7 +22,7 @@ if (($log != null)&&($log == $user['pseudo']))  {
     $_SESSION['user'] = $user['id'];
 
     header("Location: projects.php");
-
+    exit();
   }
   else {
     header("Location: index.php?error=1");

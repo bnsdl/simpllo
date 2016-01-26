@@ -111,7 +111,13 @@ if (isset($_SESSION['user']) === false ){
 }
 
 .btnDelTable{
-  /*display: none;*/
+  background: #f59740;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: cell;
+  padding: 5px;
+  color: rgb(57, 58, 68);
+  font-size: 1.1em;
   float: right;
   position: relative;
   bottom: 28px;

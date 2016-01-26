@@ -20,14 +20,14 @@ $requete = "SELECT * FROM `users` WHERE `id`='".$idUser."'";
 $resultats = $connexion->query($requete);
 $check = $resultats->fetch();
 
-if ($check['pwd'] != $aPwd) {
+if ($check['pwd'] != crypt("$aPwd", "$2a$")) {
   $rep = '{"reponse" : "Mot de passe actuel incorrect"}';
 }
 
 else {
 
   if ((isset($_POST['newPwd']))&&($_POST['newPwd'] != "")) {
-    $newPwd = $_POST["newPwd"];
+    $newPwd = crypt($_POST["newPwd"], "$2a$");
 
     //------ REQUETE MODIFICATION PWD-------
 

@@ -41,7 +41,7 @@
 
 header{
   border: 1px solid black;
-  padding: 10px;
+  padding: 20px 10px;
   background: rgb(125, 214, 244);
 }
 
@@ -56,6 +56,7 @@ li{
 
 .right {
   float: right;
+  font-size: 1.1em;
 }
 
 .home {
@@ -71,8 +72,8 @@ li{
   border-radius: 3px;
   width: 120px;
   position: absolute;
-  top: 60px;
-  right: 75px;
+  top: 80px;
+  right: 60px;
   box-shadow: 0px 0px 5px 2px #656565;
   padding: 20px 10px 10px 10px;
 }
