@@ -114,7 +114,7 @@ if (isset($_SESSION['user']) === false ){
   background: #f59740;
   border: 1px solid black;
   border-radius: 10px;
-  cursor: cell;
+  cursor: pointer;
   padding: 5px;
   color: rgb(57, 58, 68);
   font-size: 1.1em;
@@ -131,7 +131,7 @@ if (isset($_SESSION['user']) === false ){
 </style>
 <script type="text/javascript">
 
-
+var requete = new XMLHttpRequest();
 var btns = document.getElementById("btns");
 
 function showBtnTache(id){
@@ -177,11 +177,22 @@ function onKeyPressedList(e){
   }
 }
 
+//-----onKeyPressed date d'échéance------
+
+function onKeyPressedDate(e){
+  var date = document.getElementById("date");
+  if (e.keyCode === 13){
+    console.log(date.value);
+    requete.open("get", "addDate.php?date="+date.value,true);
+    requete.send();
+    requete.onload = refreshView;
+  }
+}
+
 //----- MODIF LISTES--------
 
 function updateTable() {
   var tableName = document.getElementById("inputOrigin");
-  var requete = new XMLHttpRequest();
   requete.open("get", "createTable.php?tableName="+tableName.value,true);
   requete.send();
   requete.onload = refreshView;
