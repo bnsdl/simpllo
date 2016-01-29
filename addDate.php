@@ -12,7 +12,7 @@ try
   die('Erreur : '.$e->getMessage() );
 }
 
-$requete = "UPDATE `pr` SET `echeance` = '".$date."' WHERE id='".$idProject."'";
+$requete = "UPDATE `projects` SET `echeance` = '".$date."' WHERE id='".$idProject."'";
 $resultats = $connexion->query($requete);
 
 $resultats->closeCursor();

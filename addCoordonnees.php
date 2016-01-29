@@ -11,7 +11,7 @@ try
 } catch ( Exception $e ){
   die('Erreur : '.$e->getMessage() );
 }
-$requete = "UPDATE `list` SET `x` = '".$x."', `y` = '".$y."', `position` = 'absolute' WHERE `id` =".$idList;
+$requete = "UPDATE `lists` SET `x` = '".$x."', `y` = '".$y."', `position` = 'absolute' WHERE `id` =".$idList;
 $resultats = $connexion->query($requete);
 
 $resultats->closeCursor();

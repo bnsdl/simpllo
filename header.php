@@ -34,10 +34,10 @@
         die('Erreur : '.$e->getMessage() );
       }
 
-      if ($_SERVER['PHP_SELF'] === '/simpllo/projects.php'){
+      if ($_SERVER['PHP_SELF'] === '/projects.php'){
         // session_start();
 
-        $requete = "SELECT * FROM users WHERE `id` = '".$_SESSION['user']."'";
+        $requete = "SELECT * FROM `users` WHERE `id` = '".$_SESSION['user']."'";
         $resultats = $connexion->query($requete);
         $user = $resultats->fetch();
         echo "<li id='hi'>Bienvenue ".$user['prenom']." !</li>";
@@ -45,9 +45,9 @@
 
       // afficher un input d'échéance dans les projets sur les pages tables.php si echeance n'est pas encore définie
 
-      if ($_SERVER['PHP_SELF'] === '/simpllo/tables.php'){
+      if ($_SERVER['PHP_SELF'] === '/tables.php'){
 
-        $requete = "SELECT * FROM pr WHERE `id` = '".$_GET['idp']."'";
+        $requete = "SELECT * FROM `projects` WHERE `id` = '".$_GET['idp']."'";
         $resultats = $connexion->query($requete);
         $project = $resultats->fetch();
 
@@ -72,14 +72,14 @@
 
           //requête pour affichage des notifications si notifications
 
-          $requete = "SELECT COUNT('id') FROM notifications WHERE `idUser` = '".$_SESSION['user']."'";
+          $requete = "SELECT COUNT(*) FROM `notifications` WHERE `idUser` = '".$_SESSION['user']."'";
           $resultats = $connexion->query($requete);
           $notif = $resultats->fetch();
+          // echo $notif[0];
+          // $notif_count = floor(implode($notif)/10);
 
-          $notif_count = floor(implode($notif)/10);
-
-          if ($notif_count > 0) {
-            echo "<div id='notif_nb'>".$notif_count."</div>";
+          if ($notif[0] > 0) {
+            echo "<div id='notif_nb'>".$notif[0]."</div>";
           }
 
           $resultats->closeCursor();
@@ -93,7 +93,7 @@
 
           //requête pour affichage du contenu des notifications
 
-          $requete = "SELECT * FROM notifications WHERE `idUser` = '".$_SESSION['user']."'";
+          $requete = "SELECT * FROM `notifications` WHERE `idUser` = '".$_SESSION['user']."'";
           $resultats = $connexion->query($requete);
           while ($notif = $resultats->fetch()){
             echo "<li class='notif'>".$notif['content']."<input id='ch".$notif['id']."'type='checkbox'</li><br>";
@@ -162,6 +162,19 @@ function hideMenu(){
     // console.log(targetId);
     requete.open("get", "delNotif.php?id="+targetId), true;
     requete.send();
+  }
+}
+
+//-----onKeyPressed date d'échéance------
+
+function onKeyPressedDate(e){
+  // console.log(e.keyCode);
+  var date = document.getElementById("date");
+  if (e.keyCode === 13){
+    // console.log(date.value);
+    requete.open("get", "addDate.php?date="+date.value,true);
+    requete.send();
+    requete.onload = refreshView;
   }
 }
 

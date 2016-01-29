@@ -11,7 +11,7 @@ try
   die('Erreur : '.$e->getMessage() );
 }
 
-$requete = "INSERT INTO `list` (`id`, `name`, `idProjet`, `idUser`) VALUES (NULL, '$tableName', '$idProject', '$idUser')";
+$requete = "INSERT INTO `lists` (`id`, `name`, `idProjet`, `idUser`) VALUES (NULL, '$tableName', '$idProject', '$idUser')";
 $resultats = $connexion->query($requete);
 
 $resultats->closeCursor();

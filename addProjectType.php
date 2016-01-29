@@ -10,7 +10,7 @@ try
 } catch ( Exception $e ){
   die('Erreur : '.$e->getMessage() );
 }
-$requete = "UPDATE `pr` SET `type` = '".$type."' WHERE `id` =".$idProject;
+$requete = "UPDATE `projects` SET `type` = '".$type."' WHERE `id` =".$idProject;
 $resultats = $connexion->query($requete);
 
 $resultats->closeCursor();

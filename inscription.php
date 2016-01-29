@@ -95,7 +95,7 @@ function modifText() {
   if (data.reponse == "1"){
     text.style.color="rgb(31, 154, 20)";
     text.textContent = "Utilisateur créé, merci d'utiliser notre site, vous allez être redirigé dans quelques instants.";
-    window.setTimeout(function(){document.location.href="http://localhost/simpllo/index.php";}, 3000);
+    window.setTimeout(function(){document.location.href="index.php";}, 3000);
   }
   else {
     text.textContent = data.reponse;

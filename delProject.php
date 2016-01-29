@@ -10,14 +10,14 @@ try
   die('Erreur : '.$e->getMessage() );
 }
 
-$requete = "DELETE FROM `pr` WHERE `id` = ".$idProject;
+$requete = "DELETE FROM `projects` WHERE `id` = ".$idProject;
 $resultats = $connexion->query($requete);
 
-$requete2 = "DELETE FROM `list` WHERE `idProjet` = ".$idProject;
+$requete2 = "DELETE FROM `lists` WHERE `idProjet` = ".$idProject;
 $resultats2 = $connexion->query($requete2);
 $resultats2->closeCursor();
 
-$requete3 = "DELETE FROM `task` WHERE `idProjet` = ".$idProject;
+$requete3 = "DELETE FROM `tasks` WHERE `idProjet` = ".$idProject;
 $resultats3 = $connexion->query($requete3);
 $resultats3->closeCursor();
 

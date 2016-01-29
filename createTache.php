@@ -12,7 +12,7 @@ try
   die('Erreur : '.$e->getMessage() );
 }
 
-$requete = "INSERT INTO `task` (`id`,`content`,`idList`, `idProjet`, `idUser`) VALUES (NULL,'$tacheName', '$idli', '$idProject', '$idUser')";
+$requete = "INSERT INTO `tasks` (`id`,`content`,`idList`, `idProjet`, `idUser`) VALUES (NULL,'$tacheName', '$idli', '$idProject', '$idUser')";
 $resultats = $connexion->query($requete);
 
 $resultats->closeCursor();

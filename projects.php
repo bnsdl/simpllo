@@ -125,6 +125,7 @@ if (isset($_SESSION['user']) === false ){
     <div class='dropzone' style="background:#f2a339">
       <h3>Mes projets</h3>
       <?php
+
       try
       {
         $connexion = new PDO('mysql:host=localhost; dbname=simpllo;charset=utf8', 'root', 'root');
@@ -134,7 +135,7 @@ if (isset($_SESSION['user']) === false ){
 
       //on check les dates d'échéances, si < 7jours, passage en type prio
 
-      $requete = "SELECT * FROM pr WHERE `idUser` =".$idUser;
+      $requete = "SELECT * FROM projects WHERE `idUser` =".$idUser;
       $resultats = $connexion->query($requete);
 
       while ($project = $resultats->fetch()){
@@ -144,7 +145,7 @@ if (isset($_SESSION['user']) === false ){
           $echeance = date('Y-m-d', strtotime($project['echeance']));
           $restant = (strtotime($echeance) - strtotime($date))/(24*3600);
           if ($restant < 7) {
-            $req = "UPDATE `pr` SET `type` = 'prio' WHERE `id` =".$project['id'];
+            $req = "UPDATE `projects` SET `type` = 'prio' WHERE `id` =".$project['id'];
             $res = $connexion->query($req);
             $req = "INSERT INTO `notifications` (`id`, `content`, `idUser`) VALUES (NULL, 'projet ".$project['name']." déplacé en prioritaire', '".$idUser."')";
             $res = $connexion->query($req);
@@ -316,11 +317,11 @@ if (isset($_SESSION['user']) === false ){
     console.log("event: "+event.target);
     if (pw) {
       // console.log('pw');
-      document.location.href="http://localhost/simpllo/patchwork.php?idp="+id;
+      document.location.href="patchwork.php?idp="+id;
     }
     else {
       // console.log("else");
-      document.location.href="http://localhost/simpllo/tables.php?idp="+id;
+      document.location.href="tables.php?idp="+id;
     }
   }
 

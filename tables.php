@@ -27,7 +27,7 @@ if (isset($_SESSION['user']) === false ){
     die('Erreur : '.$e->getMessage() );
   }
 
-  $requete = "SELECT * FROM list WHERE `idProjet` =".$idProject." AND `idUser`=".$idUser;
+  $requete = "SELECT * FROM lists WHERE `idProjet` =".$idProject." AND `idUser`=".$idUser;
   $resultats = $connexion->query($requete);
   while ($tableName = $resultats->fetch() ){
 
@@ -37,7 +37,7 @@ if (isset($_SESSION['user']) === false ){
     echo "<h2>".$tableName['name']."</h2>";
     echo "<button class='btnDelTable' type='button' id=".$tableName['id']." onclick='delTable(id)'>X</button>";
 
-    $requete2 = "SELECT * FROM task WHERE `idList` = ".$tableName['id'];
+    $requete2 = "SELECT * FROM tasks WHERE `idList` = ".$tableName['id'];
     $resultats2 = $connexion->query($requete2);
     while ($tacheName = $resultats2->fetch() ){
 
@@ -81,7 +81,7 @@ if (isset($_SESSION['user']) === false ){
 </body>
 <script type="text/javascript">
 
-var requete = new XMLHttpRequest();
+// var requete = new XMLHttpRequest();
 var btns = document.getElementById("btns");
 
 function showBtnTache(id){
@@ -127,18 +127,6 @@ function onKeyPressedList(e){
   }
 }
 
-//-----onKeyPressed date d'échéance------
-
-function onKeyPressedDate(e){
-  var date = document.getElementById("date");
-  if (e.keyCode === 13){
-    console.log(date.value);
-    requete.open("get", "addDate.php?date="+date.value,true);
-    requete.send();
-    requete.onload = refreshView;
-  }
-}
-
 //----- MODIF LISTES--------
 
 function updateTable() {
@@ -150,7 +138,6 @@ function updateTable() {
 }
 
 function delTable(id) {
-  var requete = new XMLHttpRequest();
   requete.open("get", "delTable.php?idli="+id,true);
   requete.send();
   requete.onload = refreshView;
@@ -172,7 +159,6 @@ function onKeyPressedTask(e, id){
 function updateTache(id) {
 
   var tacheName = document.getElementById("input"+id);
-  var requete = new XMLHttpRequest();
   requete.open("get", "createTache.php?content="+tacheName.value+"&idli="+id,true);
   requete.send();
   requete.onload = refreshView;
@@ -183,7 +169,6 @@ function updateTache(id) {
 function delTache(idDouble){
   var id = idDouble.substring(3, idDouble.indexOf(' '));
   // var idList = idDouble.substring(idDouble.indexOf(' ')+1);
-  var requete = new XMLHttpRequest();
   requete.open("get", "delTache.php?idTask="+id,true);
   requete.send();
   requete.onload = refreshView;
@@ -195,20 +180,15 @@ function delTache(idDouble){
 function checking(id){
   var check = document.getElementById("check"+id);
   if (check.checked){
-    var requete = new XMLHttpRequest();
     requete.open("get", "checked.php?checked=1&idTask="+id,true);
     requete.send();
   }
   else {
-    var requete = new XMLHttpRequest();
     requete.open("get", "checked.php?checked=0&idTask="+id ,true);
     requete.send();
   }
 }
 
-function refreshView() {
-  window.location.reload();
-}
 
 </script>
 </html>

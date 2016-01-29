@@ -10,10 +10,10 @@ try
   die('Erreur : '.$e->getMessage() );
 }
 
-$requete = "DELETE FROM `list` WHERE `id`=".$idList;
+$requete = "DELETE FROM `lists` WHERE `id`=".$idList;
 $resultats = $connexion->query($requete);
 
-$requete2 = "DELETE FROM `task` WHERE `idList` = ".$idList;
+$requete2 = "DELETE FROM `tasks` WHERE `idList` = ".$idList;
 $resultats2 = $connexion->query($requete2);
 $resultats2->closeCursor();
 

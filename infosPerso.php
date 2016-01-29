@@ -3,6 +3,7 @@ session_start();
 if (isset($_SESSION['user']) === false ){
   header("Location: index.php");
 }
+include 'header.php';
 
 $idUser = $_SESSION['user'];
 
@@ -14,14 +15,16 @@ $idUser = $_SESSION['user'];
   <script src="standard.js"></script>
   <style media="screen">
 
-
-  label {
-    width: 140px;
+  #containerInf {
+    display: block;
+    width: 500px;
+    margin: 50px auto;
+    border-radius: 1em;
+    border: 1px solid black;
   }
 
-  #container {
-    width: 500px;
-    padding: 0px;
+  #containerInf p {
+    margin-top: 1em;
   }
 
   #title {
@@ -42,20 +45,25 @@ $idUser = $_SESSION['user'];
     display: inline-block;
   }
 
-  #textError {
-    height:30px;
-    color: red;
-  }
-
   .btnInfos {
     background: #f59740;
     border: 1px solid black;
     border-radius: 10px;
-    cursor: cell;
+    cursor: pointer;
     padding: 5px;
     color: rgb(57, 58, 68);
     font-size: 1.1em;
     margin-left: 20px;
+  }
+
+  #textError {
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.2em;
+  }
+
+  label {
+    width: 160px;
   }
 
   </style>
@@ -64,7 +72,6 @@ $idUser = $_SESSION['user'];
 <body>
   <?php
 
-  include 'header.php';
 
   try
   {
@@ -77,9 +84,8 @@ $idUser = $_SESSION['user'];
   $resultats = $connexion->query($requete);
   $user = $resultats->fetch();
 
-
   ?>
-  <div id="container">
+  <div id="containerInf">
     <div id="title">
       Modifier vos informations personnelles:
     </div>

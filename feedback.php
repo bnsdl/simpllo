@@ -6,7 +6,17 @@ session_start();
 <head>
   <meta charset="utf-8">
   <script src="standard.js"></script>
+
   <style media="screen">
+
+  #containerFb {
+    display: block;
+    width: 320px;
+    margin: 50px auto;
+    padding: 2em;
+    border-radius: 1em;
+    border: 1px solid black;
+  }
 
   #bienvenue {
     padding: 100px 0;
@@ -22,7 +32,7 @@ session_start();
   }
 
   #feedback {
-    margin-top: 10px;
+    margin: 10px 0;
     font-size: 1.2em;
     resize: none;
   }
@@ -31,7 +41,7 @@ session_start();
     margin-left: 250px;
   }
 
-  label {
+  #label {
     width: 200px;
     font-size: 1.2em;
     text-align: inherit;
@@ -39,7 +49,6 @@ session_start();
   }
 
   #message {
-    /*max-: 100px;*/
     width: 300px;
     margin-left: 30px;
     position: relative;
@@ -69,10 +78,10 @@ session_start();
   $idUser = $_SESSION['user'];
   echo "<div id='bienvenue'><p>Une idée, un retour ou n'importe quoi à soumettre ? C'est par ici !</p></div>"
   ?>
-  <form id="container">
+  <form id="containerFb">
     <p >
-      <label for="feedback"><b>Votre commentaire:</b></label>
-      <textarea id="feedback" rows="5" cols="30" maxlength="255" name='content'></textarea>
+      <label id="label" for="feedback"><b>Votre commentaire:</b></label>
+      <textarea id="feedback" rows="5" cols="38" maxlength="255" name='content'></textarea>
     </p>
     <button id="bouton" type="button" onclick="send()">Envoi</button>
   </form>

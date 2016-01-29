@@ -10,7 +10,7 @@ try
   die('Erreur : '.$e->getMessage() );
 }
 
-$requete = "DELETE FROM `task` WHERE id=".$idTask;
+$requete = "DELETE FROM `tasks` WHERE id=".$idTask;
 $resultats = $connexion->query($requete);
 
 $resultats->closeCursor();

@@ -11,7 +11,7 @@ try
 } catch ( Exception $e ){
   die('Erreur : '.$e->getMessage() );
 }
-$requete = "UPDATE `task` SET `checked` = '".$checked."' WHERE `id` =".$idTask;
+$requete = "UPDATE `tasks` SET `checked` = '".$checked."' WHERE `id` =".$idTask;
 $resultats = $connexion->query($requete);
 
 $resultats->closeCursor();

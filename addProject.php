@@ -10,7 +10,7 @@ try
   die('Erreur : '.$e->getMessage() );
 }
 
-$requete = "INSERT INTO `pr` (`id`,`name`, `idUser`) VALUES (NULL,'$projectName', '$idUser')";
+$requete = "INSERT INTO `projects` (`id`,`name`, `idUser`) VALUES (NULL,'$projectName', '$idUser')";
 $resultats = $connexion->query($requete);
 
 $resultats->closeCursor();
