@@ -9,140 +9,6 @@ if (isset($_SESSION['user']) === false ){
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Vos projets</title>
-</head>
-<body>
-  <?php
-
-  include 'header.php';
-  $idUser = $_SESSION['user'];
-
-  ?>
-  <div id="news">
-    <h3>News:</h3>
-    <p style='text-align: justify; margin-top:20px'>
-      Bienvenue sur mon gestionnaire de tâches Simpllo et merci de l'utiliser ! Le site est actuellement en pleine phase de développement et tout retour me sera utile afin de l'améliorer, alors n'hésitez pas à visiter la rubrique "Feedback" dans l'onglet "Mon compte" si vous rencontrez un problème ou qu'il vous semble qu'une fonctionnalité centrale est manquante.
-    </p><br>
-    <p style='text-align:center'>Au fur et à mesure que le site évoluera, je tiendrais cette rubrique à jour afin de vous tenir au courant de l'avancée du projet ! Have fun :)
-    </p>
-  </div>
-  <div id='infos'>
-  </div>
-  <div class="container_flex">
-
-    <div class='dropzone' style="background:#f2a339">
-      <h3>Mes projets</h3>
-      <?php
-      try
-      {
-        $connexion = new PDO('mysql:host=localhost; dbname=simpllo;charset=utf8', 'root', 'root');
-      } catch ( Exception $e ){
-        die('Erreur : '.$e->getMessage() );
-      }
-
-      //on check les dates d'échéances, si < 7jours, passage en type prio
-
-      $requete = "SELECT * FROM pr WHERE `idUser` =".$idUser;
-      $resultats = $connexion->query($requete);
-
-      while ($project = $resultats->fetch()){
-        if (($project['echeance'] !== '0000-00-00') && ($project['type'] !== 'prio')){
-          $date = new Datetime();
-          $date = $date->format('Y-m-d');
-          $echeance = date('Y-m-d', strtotime($project['echeance']));
-          $restant = (strtotime($echeance) - strtotime($date))/(24*3600);
-            if ($restant < 7) {
-              $req = "UPDATE `pr` SET `type` = 'prio' WHERE `id` =".$project['id'];
-              $res = $connexion->query($req);
-              $req = "INSERT INTO `notifications` (`id`, `content`, `idUser`) VALUES (NULL, 'projet ".$project['name']." déplacé en prioritaire', '".$idUser."')";
-              $res = $connexion->query($req);
-              $res->closeCursor();
-            }
-        }
-      }
-      $resultats->closeCursor();
-
-
-
-      //gère le contenu de création des projets
-
-      $requete2 = $requete." AND `type` = ''";
-      $resultats = $connexion->query($requete2);
-      while ($project = $resultats->fetch() ){
-        echo "<div class='projets' id='".$project['id']."' onclick='joinProject(".$project['id'].")' style='cursor:pointer' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
-        echo "<p class='project_name'>".$project['name']."</p>";
-        echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
-        echo "</div>";
-      }
-      $resultats->closeCursor();
-
-      ?>
-      <input  onclick="showBtn()" id="inputProjects" onkeyup='onKeyPressedPr(event)' placeholder="Nouveau projet"></input>
-      <div id="btns">
-        <button type="button" class="btnPr" onclick="addProject()">Enregistrer</button>
-        <button type="button" id="btnDelete" class="btnPr" onclick="hideBtn()">X</button>
-      </div>
-    </div>
-
-
-    <div id='dropper1' class="dropzone" onmouseover="showInfos(1)" onmouseout="showInfos(4)" style='background:rgb(240, 50, 50)'><h3>Prioritaires</h3>
-      <?php
-
-      //gère le contenu du panier 'prio'
-
-      $requete2 = $requete." AND `type` = 'prio'";
-      $resultats = $connexion->query($requete2);
-      while ($project = $resultats->fetch() ){
-        echo "<div class='projets' id='".$project['id']."' style='cursor:pointer'  onclick='joinProject(".$project['id'].")' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
-        echo "<p class='project_name'>".$project['name']."</p>";
-        echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
-        echo "</div>";
-      }
-      $resultats->closeCursor();
-      ?>
-    </div>
-    <div id='dropper2' class="dropzone" style='background:rgb(47, 153, 198)'><h3>Standards</h3>
-      <?php
-
-      //gère le contenu du panier 'standard'
-
-      $requete2 = $requete." AND `type` = 'standard'";
-      $resultats = $connexion->query($requete2);
-      while ($project = $resultats->fetch() ){
-        echo "<div class='projets' id='".$project['id']."' style='cursor:pointer' onclick='joinProject(".$project['id'].")' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
-        echo "<p class='project_name' >".$project['name']."</p>";
-        echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
-        echo "</div>";
-      }
-      $resultats->closeCursor();
-      ?>
-    </div>
-    <div id='dropper3' onmouseover="showInfos(3)" onmouseout="showInfos(4)" class="dropzone" style='background:rgb(50, 240, 103)'><h3>Patchworks</h3>
-      <?php
-
-      //gère le contenu du panier 'patchwork'
-
-      $requete2 = $requete." AND `type` = 'patchwork'";
-      $resultats = $connexion->query($requete2);
-      while ($project = $resultats->fetch() ){
-        echo "<div class='projets' id='".$project['id']."' style='cursor:pointer' onclick='joinProject(".$project['id'].", 1)' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
-        echo "<p class='project_name' >".$project['name']."</p>";
-        echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
-        echo "</div>";
-      }
-      $resultats->closeCursor();
-      echo "</div>";
-
-
-
-      ?>
-      <!-- </div> -->
-
-    </div>
-
-
-
-  </body>
   <style media="screen">
 
   .container_flex {
@@ -235,6 +101,141 @@ if (isset($_SESSION['user']) === false ){
   }
 
   </style>
+  <title>Vos projets</title>
+</head>
+<body>
+  <?php
+
+  include 'header.php';
+  $idUser = $_SESSION['user'];
+
+  ?>
+  <div id="news">
+    <h3>News:</h3>
+    <p style='text-align: justify; margin-top:20px'>
+      Bienvenue sur mon gestionnaire de tâches Simpllo et merci de l'utiliser ! Le site est actuellement en pleine phase de développement et tout retour me sera utile afin de l'améliorer, alors n'hésitez pas à visiter la rubrique "Feedback" dans l'onglet "Mon compte" si vous rencontrez un problème ou qu'il vous semble qu'une fonctionnalité centrale est manquante.
+    </p><br>
+    <p style='text-align:center'>Au fur et à mesure que le site évoluera, je tiendrais cette rubrique à jour afin de vous tenir au courant de l'avancée du projet ! Have fun :)
+    </p>
+  </div>
+  <div id='infos'>
+  </div>
+  <div class="container_flex">
+
+    <div class='dropzone' style="background:#f2a339">
+      <h3>Mes projets</h3>
+      <?php
+      try
+      {
+        $connexion = new PDO('mysql:host=localhost; dbname=simpllo;charset=utf8', 'root', 'root');
+      } catch ( Exception $e ){
+        die('Erreur : '.$e->getMessage() );
+      }
+
+      //on check les dates d'échéances, si < 7jours, passage en type prio
+
+      $requete = "SELECT * FROM pr WHERE `idUser` =".$idUser;
+      $resultats = $connexion->query($requete);
+
+      while ($project = $resultats->fetch()){
+        if (($project['echeance'] !== '0000-00-00') && ($project['type'] !== 'prio')){
+          $date = new Datetime();
+          $date = $date->format('Y-m-d');
+          $echeance = date('Y-m-d', strtotime($project['echeance']));
+          $restant = (strtotime($echeance) - strtotime($date))/(24*3600);
+          if ($restant < 7) {
+            $req = "UPDATE `pr` SET `type` = 'prio' WHERE `id` =".$project['id'];
+            $res = $connexion->query($req);
+            $req = "INSERT INTO `notifications` (`id`, `content`, `idUser`) VALUES (NULL, 'projet ".$project['name']." déplacé en prioritaire', '".$idUser."')";
+            $res = $connexion->query($req);
+            $res->closeCursor();
+          }
+        }
+      }
+      $resultats->closeCursor();
+
+
+
+      //gère le contenu de création des projets
+
+      $requete2 = $requete." AND `type` = ''";
+      $resultats = $connexion->query($requete2);
+      while ($project = $resultats->fetch() ){
+        echo "<div class='projets' id='".$project['id']."' onclick='joinProject(".$project['id'].")' style='cursor:pointer' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
+        echo "<p class='project_name'>".$project['name']."</p>";
+        echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
+        echo "</div>";
+      }
+      $resultats->closeCursor();
+
+      ?>
+      <input  onclick="showBtn()" id="inputProjects" onkeyup='onKeyPressedPr(event)' placeholder="Nouveau projet"></input>
+      <div id="btns">
+        <button type="button" class="btnPr" onclick="addProject()">Enregistrer</button>
+        <button type="button" id="btnDelete" class="btnPr" onclick="hideBtn()">X</button>
+      </div>
+    </div>
+
+
+    <div id='dropper1' class="dropzone" onmouseover="showInfos(1)" onmouseout="showInfos(4)" style='background:rgb(240, 50, 50)'><h3>Prioritaires</h3>
+      <?php
+
+      //gère le contenu du panier 'prio'
+
+      $requete2 = $requete." AND `type` = 'prio'";
+      $resultats = $connexion->query($requete2);
+      while ($project = $resultats->fetch() ){
+        echo "<div class='projets' id='".$project['id']."' style='cursor:pointer'  onclick='joinProject(".$project['id'].")' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
+        echo "<p class='project_name'>".$project['name']."</p>";
+        echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
+        echo "</div>";
+      }
+      $resultats->closeCursor();
+      ?>
+    </div>
+    <div id='dropper2' class="dropzone" style='background:rgb(47, 153, 198)'><h3>Standards</h3>
+      <?php
+
+      //gère le contenu du panier 'standard'
+
+      $requete2 = $requete." AND `type` = 'standard'";
+      $resultats = $connexion->query($requete2);
+      while ($project = $resultats->fetch() ){
+        echo "<div class='projets' id='".$project['id']."' style='cursor:pointer' onclick='joinProject(".$project['id'].")' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
+        echo "<p class='project_name' >".$project['name']."</p>";
+        echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
+        echo "</div>";
+      }
+      $resultats->closeCursor();
+      ?>
+    </div>
+    <div id='dropper3' onmouseover="showInfos(3)" onmouseout="showInfos(4)" class="dropzone" style='background:rgb(50, 240, 103)'><h3>Patchworks</h3>
+      <?php
+
+      //gère le contenu du panier 'patchwork'
+
+      $requete2 = $requete." AND `type` = 'patchwork'";
+      $resultats = $connexion->query($requete2);
+      while ($project = $resultats->fetch() ){
+        echo "<div class='projets' id='".$project['id']."' style='cursor:pointer' onclick='joinProject(".$project['id'].", 1)' draggable='true' ondragstart='event.dataTransfer.setData(\"".'text/plain'."\",null)'>";
+        echo "<p class='project_name' >".$project['name']."</p>";
+        echo "<button class='btnDelProject' type='button' onclick='delProject(".$project['id'].")'>X</button>";
+        echo "</div>";
+      }
+      $resultats->closeCursor();
+      echo "</div>";
+
+
+
+      ?>
+      <!-- </div> -->
+
+    </div>
+
+
+
+  </body>
+
   <script>
 
 
