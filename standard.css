@@ -125,6 +125,8 @@ label {
   border: 1px solid black;
 }
 
+/*---------index/inscription---------*/
+
 .inputForm {
   width: 200px;
   height: 30px;
@@ -163,4 +165,54 @@ label {
 #textError {
   height:30px;
   color: red;
+}
+
+/*-------tables/patchwork--------- */
+
+.inputTaches {
+  display: inline-block;
+}
+
+.card {
+  width: 200px;
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 2px;
+  margin:10px;
+  padding: 2px;
+  vertical-align: top;
+  box-shadow: 0px 0px 2px 1px #656565;
+  background: white;
+}
+
+#list {
+  margin:10px;
+  display: inline-block;
+}
+
+#btns {
+  display: none;
+}
+
+.btns {
+  display: none;
+  margin-left: 20px;
+}
+
+.btnDelTable{
+  background: #f59740;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  color: rgb(57, 58, 68);
+  font-size: 1.1em;
+  float: right;
+  position: relative;
+  bottom: 28px;
+}
+
+.btnDelTache {
+  margin-left: 10px;
+  display: none;
 }
