@@ -1,6 +1,11 @@
+<!DOCTYPE html>
 
 <html>
-
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link type="text/css" rel="stylesheet" href="standard.css"/>
+</head>
 <body onclick="hideMenu()">
 
 
@@ -18,7 +23,6 @@
       else {
         echo "<a onclick='redirect()'>";
       }
-
       echo "Simpllo</a></li>";
 
       //afficher le nom de l'utilisateur dans le header sur la page projects.php
@@ -60,7 +64,6 @@
           echo "<li><label id='echeance' for='name'>Date d'échéance du projet:</label><input type='date' id='date' name='date' onkeyup='onKeyPressedDate(event)'></li>";
         }
       }
-      $resultats->closeCursor();
 
       ?>
       <li class='right' onclick="showNotif()" style='cursor:pointer' >
@@ -80,7 +83,7 @@
           }
 
           $resultats->closeCursor();
-           ?>
+          ?>
 
         </div>
       </li>
@@ -90,14 +93,14 @@
 
           //requête pour affichage du contenu des notifications
 
-            $requete = "SELECT * FROM notifications WHERE `idUser` = '".$_SESSION['user']."'";
-            $resultats = $connexion->query($requete);
-            while ($notif = $resultats->fetch()){
-              echo "<li class='notif'>".$notif['content']."<input id='ch".$notif['id']."'type='checkbox'</li><br>";
-            }
-            $resultats->closeCursor();
+          $requete = "SELECT * FROM notifications WHERE `idUser` = '".$_SESSION['user']."'";
+          $resultats = $connexion->query($requete);
+          while ($notif = $resultats->fetch()){
+            echo "<li class='notif'>".$notif['content']."<input id='ch".$notif['id']."'type='checkbox'</li><br>";
+          }
+          $resultats->closeCursor();
 
-           ?>
+          ?>
         </ul>
       </div>
       <li class='right menu' onclick="showMenu()" style='cursor:pointer'>Mon compte</li>
@@ -114,162 +117,7 @@
 
 
 </body>
-<style media="screen">
 
-* {
-  margin: 0;
-  padding: 0;
-  font-family: helvetica;
-}
-
-#home {
-  font-size: 1.5em;
-}
-
-#hi {
-  margin-left: 30%;
-  font-size: 1.5em;
-}
-
-header{
-  border: 1px solid black;
-  padding: 20px 10px;
-  background: rgb(125, 214, 244);
-}
-
-li{
-  display: inline;
-  margin-right: 20px;
-}
-
-li b {
-  color: red;
-}
-
-.right {
-  float: right;
-  font-size: 1.1em;
-}
-
-#menu {
-  display: none;
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 3px;
-  width: 120px;
-  position: absolute;
-  top: 80px;
-  right: 60px;
-  box-shadow: 0px 0px 5px 2px #656565;
-  padding: 20px 10px 10px 10px;
-  background: white;
-}
-
-#notif {
-  display: none;
-  /*text-align: center;*/
-  border: 1px solid black;
-  border-radius: 3px;
-  width: 120px;
-  position: absolute;
-  top: 80px;
-  right: 10px;
-  box-shadow: 0px 0px 5px 2px #656565;
-  padding: 20px 10px 10px 20px;
-  background: white;
-}
-
-#notif_icone {
-  position: relative;
-  height:30px;
-  width: 30px;
-  background: url('notifications.png');
-  background-size: contain;
-  margin-top: -5px;
-}
-
-#notif_nb {
-  /*display: none;*/
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  height: 15px;
-  width: 15px;
-  border: 2px solid #cd0202;
-  border-radius: 100%;
-  text-align: center;
-  font-size: 0.9em;
-  color: #cd0202;
-  background: white;
-}
-
-.notif {
-  list-style-type: disc;
-  display: list-item;
-}
-
-li.notif {
-  width: 100%;
-}
-
-#container {
-  display: block;
-  width: 320px;
-  margin: 50px auto;
-  padding: 1em;
-  border-radius: 1em;
-  border: 1px solid black;
-}
-
-#container p {
-  margin-top: 1em;
-}
-
-label {
-  display: inline-block;
-  width: 90px;
-  text-align: right;
-}
-
-#echeance {
-  width: inherit;
-  display: inherit;
-  text-align: inherit;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-
-#date {
-  vertical-align: middle;
-  font-size: 1.1em;
-  border: 1px solid black;
-}
-
-.inputForm {
-  width: 200px;
-  height: 30px;
-  font-size: 1.2em;
-  box-sizing: border-box;
-  border: 1px solid #999;
-}
-
-#bouton {
-  margin-top: 10px;
-  margin-left: 225px;
-  padding: 4px 10px;
-  font-size: 1.2em;
-  border: 1px solid black;
-  border-radius: 5px;
-  background: #2fab09;
-  cursor: pointer;
-}
-
-#bouton:hover {
-  background: #4bc326;
-}
-
-
-</style>
 <script type="text/javascript">
 
 var menu = document.getElementById("menu");
@@ -289,9 +137,12 @@ function showMenu(){
 }
 
 function showNotif(){
-  notif.style.display = "block";
   var notif_nb = document.getElementById('notif_nb');
-  notif_nb.style.display = "none";
+  if (notif_nb != null){
+    notif.style.display = "block";
+  }
+  // console.log(notif_nb);
+  // notif.style.display = "none";
 }
 
 function hideMenu(){
