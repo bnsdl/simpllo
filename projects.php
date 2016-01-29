@@ -235,6 +235,7 @@ if (isset($_SESSION['user']) === false ){
 
 
   </body>
+  <script src="standard.js"></script>
 
   <script>
 
@@ -296,7 +297,6 @@ if (isset($_SESSION['user']) === false ){
   function addProject(){
     var projectName = document.getElementById("inputProjects").value;
     // console.log(idUser);
-    var requete = new XMLHttpRequest();
     requete.open("get","addProject.php?name="+projectName, true);
     requete.send();
     requete.onload = refreshView;
@@ -307,14 +307,9 @@ if (isset($_SESSION['user']) === false ){
     // console.log("id: "+id);
     // console.log("event: "+event.target);
     // console.log("2: "+event.currentTarget);
-    var requete = new XMLHttpRequest();
     requete.open("get","delProject.php?idp="+id, true);
     requete.send();
     requete.onload = refreshView;
-  }
-
-  function refreshView() {
-    window.location.reload();
   }
 
   function joinProject(id, pw) {
@@ -335,7 +330,6 @@ if (isset($_SESSION['user']) === false ){
     // console.log(id);
     if (num == 1){
       //prioritaire
-      var requete = new XMLHttpRequest();
       var idp = event.target.lastChild.id;
       requete.open("get","addProjectType.php?type=prio&idp="+idp, true);
       requete.send();
@@ -343,7 +337,6 @@ if (isset($_SESSION['user']) === false ){
     }
     else if (num == 2) {
       //standard
-      var requete = new XMLHttpRequest();
       var idp = event.target.lastChild.id;
       requete.open("get","addProjectType.php?type=standard&idp="+idp, true);
       requete.send();
@@ -351,7 +344,6 @@ if (isset($_SESSION['user']) === false ){
     }
     else if (num == 3) {
       //patchwork
-      var requete = new XMLHttpRequest();
       var idp = event.target.lastChild.id;
       requete.open("get","addProjectType.php?type=patchwork&idp="+idp, true);
       requete.send();

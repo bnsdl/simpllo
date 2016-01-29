@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <title></title>
+  <script src="standard.js"></script>
   <link type="text/css" rel="stylesheet" href="standard.css"/>
 </head>
+
 <body onclick="hideMenu()">
-
-
   <header id="header">
     <ul>
       <?php
@@ -142,7 +142,6 @@ function showNotif(){
     notif.style.display = "block";
   }
   // console.log(notif_nb);
-  // notif.style.display = "none";
 }
 
 function hideMenu(){
@@ -161,7 +160,6 @@ function hideMenu(){
     var targetId = event.target.id;
     targetId = targetId.substr(2);
     // console.log(targetId);
-    var requete = new XMLHttpRequest();
     requete.open("get", "delNotif.php?id="+targetId), true;
     requete.send();
   }

@@ -11,6 +11,54 @@ $idUser = $_SESSION['user'];
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="standard.js"></script>
+  <style media="screen">
+
+
+  label {
+    width: 140px;
+  }
+
+  #container {
+    width: 500px;
+    padding: 0px;
+  }
+
+  #title {
+    padding: 20px;
+    text-align: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom: 1px solid black;
+    font-size: 1.2em;
+    background: #0981d9;
+  }
+
+  #champPwd2 {
+    vertical-align: super;
+  }
+
+  #champ {
+    display: inline-block;
+  }
+
+  #textError {
+    height:30px;
+    color: red;
+  }
+
+  .btnInfos {
+    background: #f59740;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: cell;
+    padding: 5px;
+    color: rgb(57, 58, 68);
+    font-size: 1.1em;
+    margin-left: 20px;
+  }
+
+  </style>
   <title>Informations personnelles</title>
 </head>
 <body>
@@ -77,53 +125,7 @@ $idUser = $_SESSION['user'];
   ?>
 
 </body>
-<style media="screen">
 
-
-label {
-  width: 140px;
-}
-
-#container {
-  width: 500px;
-  padding: 0px;
-}
-
-#title {
-  padding: 20px;
-  text-align: center;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom: 1px solid black;
-  font-size: 1.2em;
-  background: #0981d9;
-}
-
-#champPwd2 {
-  vertical-align: super;
-}
-
-#champ {
-  display: inline-block;
-}
-
-#textError {
-  height:30px;
-  color: red;
-}
-
-.btnInfos {
-  background: #f59740;
-  border: 1px solid black;
-  border-radius: 10px;
-  cursor: cell;
-  padding: 5px;
-  color: rgb(57, 58, 68);
-  font-size: 1.1em;
-  margin-left: 20px;
-}
-
-</style>
 <script type="text/javascript">
 
 var text = document.getElementById("textError");
@@ -137,11 +139,10 @@ function modification(numChamp){
   var ancientPwd = document.getElementById("champPwd").value;
   var newPwd = document.getElementById("champPwd2").value;
   var newPwd2 = document.getElementById("champPwd3").value;
-  var requete = new XMLHttpRequest();
   requete.open('post', 'modifInfos.php', true);
   requete.setRequestHeader("content-type", "application/x-www-form-urlencoded");
   if (numChamp == 1) {
-    console.log(1);
+    // console.log(1);
     requete.send("log=" + login + "&ancientPwd=" + ancientPwd);
     requete.onload = modifText;
   }

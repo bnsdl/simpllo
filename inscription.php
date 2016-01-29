@@ -3,14 +3,12 @@
 <head>
   <meta charset="utf-8">
   <link type="text/css" rel="stylesheet" href="standard.css"/>
+  <script src="standard.js"></script>
   <title>Inscription Simpllo</title>
 </head>
 <body>
   <?php
-
-  echo "<div id='bienvenue'><p>Vous souhaitez créer un compte ? C'est par ici !</p></div>"
-
-
+  echo "<div id='bienvenue'><p>Vous souhaitez créer un compte ? C'est par ici !</p></div>";
   ?>
   <div id="container">
     <p id="login">
@@ -81,7 +79,6 @@ function inscription(){
   if (pwd == pwd2){
     // console.log("chack");
     error.style.display ="none";
-    var requete = new XMLHttpRequest();
     requete.open('post', 'addUser.php', true);
     requete.setRequestHeader("content-type", "application/x-www-form-urlencoded");
     requete.send("log=" + login + "&pwd=" + pwd+ "&mail="+mail+"&pr="+prenom+"&name="+name);
@@ -104,7 +101,6 @@ function modifText() {
     text.textContent = data.reponse;
   }
 }
-
 
 </script>
 </html>

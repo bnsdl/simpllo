@@ -9,7 +9,8 @@ if (isset($_SESSION['user']) === false ){
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Simpllo</title>
+  <link type="text/css" rel="stylesheet" href="standard.css"/>
+<title>Simpllo</title>
 </head>
 <body>
   <?php
@@ -78,57 +79,6 @@ if (isset($_SESSION['user']) === false ){
   </div>
 
 </body>
-<style media="screen">
-
-.inputTaches {
-  display: inline-block;
-}
-
-.card {
-  width: 200px;
-  display: inline-block;
-  border: 1px solid black;
-  border-radius: 2px;
-  margin:10px;
-  padding: 2px;
-  vertical-align: top;
-  box-shadow: 0px 0px 2px 1px #656565;
-  background: white;
-}
-
-#list {
-  margin:10px;
-  display: inline-block;
-}
-
-#btns {
-  display: none;
-}
-
-.btns {
-  display: none;
-  margin-left: 20px;
-}
-
-.btnDelTable{
-  background: #f59740;
-  border: 1px solid black;
-  border-radius: 10px;
-  cursor: pointer;
-  padding: 5px;
-  color: rgb(57, 58, 68);
-  font-size: 1.1em;
-  float: right;
-  position: relative;
-  bottom: 28px;
-}
-
-.btnDelTache {
-  margin-left: 10px;
-  display: none;
-}
-
-</style>
 <script type="text/javascript">
 
 var requete = new XMLHttpRequest();

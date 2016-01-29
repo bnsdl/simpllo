@@ -9,6 +9,8 @@ if (isset($_SESSION['user']) === false ){
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="standard.js"></script>
+  <link type="text/css" rel="stylesheet" href="standard.css"/>
   <title>Simpllo</title>
 </head>
 <body>
@@ -78,62 +80,7 @@ if (isset($_SESSION['user']) === false ){
   </div>
 
 </body>
-<style media="screen">
-body {
-}
-.inputTaches {
-  display: inline-block;
-}
 
-.card {
-  width: 200px;
-  display: inline-block;
-  border: 1px solid black;
-  border-radius: 2px;
-  margin:10px;
-  padding: 2px;
-  vertical-align: top;
-  box-shadow: 0px 0px 2px 1px #656565;
-  background: white;
-}
-
-#list {
-  margin:10px;
-  display: inline-block;
-}
-
-#btns {
-  display: none;
-}
-
-.btns {
-  display: none;
-  margin-left: 20px;
-}
-
-.btnDelTable{
-  background: #f59740;
-  border: 1px solid black;
-  border-radius: 10px;
-  cursor: cell;
-  padding: 5px;
-  color: rgb(57, 58, 68);
-  font-size: 1.1em;
-  float: right;
-  position: relative;
-  bottom: 28px;
-}
-
-.btnDelTache {
-  margin-left: 10px;
-  display: none;
-}
-
-/*.hide{
-display: none;
-}*/
-
-</style>
 <script type="text/javascript">
 
 
@@ -186,7 +133,6 @@ function onKeyPressedList(e){
 
 function updateTable() {
   var tableName = document.getElementById("inputOrigin");
-  var requete = new XMLHttpRequest();
   requete.open("get", "createTable.php?tableName="+tableName.value,true);
   requete.send();
   requete.onload = refreshView;
@@ -194,7 +140,6 @@ function updateTable() {
 }
 
 function delTable(id) {
-  var requete = new XMLHttpRequest();
   requete.open("get", "delTable.php?idli="+id,true);
   requete.send();
   requete.onload = refreshView;
@@ -216,7 +161,6 @@ function onKeyPressedTask(e, id){
 function updateTache(id) {
 
   var tacheName = document.getElementById("input"+id);
-  var requete = new XMLHttpRequest();
   requete.open("get", "createTache.php?content="+tacheName.value+"&idli="+id,true);
   requete.send();
   requete.onload = refreshView;
@@ -227,7 +171,6 @@ function updateTache(id) {
 function delTache(idDouble){
   var id = idDouble.substring(3, idDouble.indexOf(' '));
   // var idList = idDouble.substring(idDouble.indexOf(' ')+1);
-  var requete = new XMLHttpRequest();
   requete.open("get", "delTache.php?idTask="+id,true);
   requete.send();
   requete.onload = refreshView;
@@ -239,20 +182,15 @@ function delTache(idDouble){
 function checking(id){
   var check = document.getElementById("check"+id);
   if (check.checked){
-    var requete = new XMLHttpRequest();
     requete.open("get", "checked.php?checked=1&idTask="+id,true);
     requete.send();
   }
   else {
-    var requete = new XMLHttpRequest();
     requete.open("get", "checked.php?checked=0&idTask="+id ,true);
     requete.send();
   }
 }
 
-function refreshView() {
-  window.location.reload();
-}
 
 document.addEventListener("drag", function( event ) {
 }, false);
@@ -267,11 +205,6 @@ document.addEventListener("dragstart", function( event ) {
   offY = event.offsetY;
 }, false);
 
-// document.addEventListener("dragend", function( event ) {
-//   // reset the transparency
-//   event.target.style.opacity = "";
-// }, false);
-
 /* events fired on the drop targets */
 document.addEventListener("dragover", function( event ) {
   // prevent default to allow drop
@@ -282,10 +215,9 @@ document.addEventListener("dragover", function( event ) {
 var element;
 
 function drop(id){
-  console.log(id);
+  // console.log(id);
   element = document.getElementById(id);
 }
-
 
 document.addEventListener('drop', function(e) {
   e.preventDefault();
@@ -304,13 +236,9 @@ function modifStyle(x, y , element){
 }
 
 function coordonnees(x, y , id){
-  var requete = new XMLHttpRequest();
   requete.open("get", "addCoordonnees.php?x="+x+"&y="+y+"&idli="+id, true);
   requete.send();
 }
-
-
-
 
 
 </script>
