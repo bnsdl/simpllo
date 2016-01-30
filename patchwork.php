@@ -28,7 +28,7 @@ if (isset($_SESSION['user']) === false ){
     die('Erreur : '.$e->getMessage() );
   }
 
-  $requete = "SELECT * FROM list WHERE `idProjet` =".$idProject." AND `idUser`=".$idUser;
+  $requete = "SELECT * FROM lists WHERE `idProjet` =".$idProject." AND `idUser`=".$idUser;
   $resultats = $connexion->query($requete);
   while ($tableName = $resultats->fetch() ){
 
@@ -36,9 +36,9 @@ if (isset($_SESSION['user']) === false ){
 
     echo "<div style='position:".$tableName['position']."; top:".$tableName['y']."px; left:".$tableName['x']."px' class='card' id =".$tableName['id']."  ondragstart='drop(".$tableName['id'].")' draggable='true'>";
     echo "<h2>".$tableName['name']."</h2>";
-    echo "<button class='btnDelTable' type='button' id=onclick='delTable(".$tableName['id'].")'>X</button>";
+    echo "<button class='btnDelTable' type='button' onclick='delTable(".$tableName['id'].")'>X</button>";
 
-    $requete2 = "SELECT * FROM task WHERE `idList` = ".$tableName['id'];
+    $requete2 = "SELECT * FROM tasks WHERE `idList` = ".$tableName['id'];
     $resultats2 = $connexion->query($requete2);
     while ($tacheName = $resultats2->fetch() ){
 
