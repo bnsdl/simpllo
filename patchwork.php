@@ -59,10 +59,10 @@ if (isset($_SESSION['user']) === false ){
 
     //-----INPUT POUR TACHES------
 
-    echo "<input onclick='showBtn(id)' onkeyup='onKeyPressedTask(event, id)' class='inputTaches' id='input".$tableName['id']."' placeholder='ajout tâche'></input>";
-    echo "<div class='btns' id='btnsinput".$tableName['id']."'>";
-    echo "<button id='".$tableName['id']."' type='button' onclick='updateTache(id)' >Créer</button>";
-    echo "</div>";
+    echo "<input onkeyup='onKeyPressedTask(event, id)' class='inputTaches' id='input".$tableName['id']."' placeholder='ajout tâche'></input>";
+    // echo "<div class='btns' id='btnsinput".$tableName['id']."'>";
+    // echo "<button id='".$tableName['id']."' type='button' onclick='updateTache(id)' >Créer</button>";
+    // echo "</div>";
     echo "</div>";
   }
   $resultats->closeCursor();
@@ -72,11 +72,11 @@ if (isset($_SESSION['user']) === false ){
   <!-- INPUT POUR LES LISTES -->
 
   <div id="list">
-    <input  onclick="showBtn()" onkeyup='onKeyPressedList(event)' id="inputOrigin" placeholder="ajout liste"></input>
-    <div id="btns">
+    <input  onkeyup='onKeyPressedList(event)' id="inputOrigin" placeholder="ajout liste"></input>
+    <!-- <div id="btns">
       <button id="btnSaveList" type="button" onclick="updateTable()">Enregistrer</button>
       <button type="button" id="btnDelete" onclick="abort()">X</button>
-    </div>
+    </div> -->
   </div>
 
 </body>

@@ -32,6 +32,7 @@ session_start();
   }
 
   #feedback {
+    width: 100%;
     margin: 10px 0;
     font-size: 1.2em;
     resize: none;
@@ -81,7 +82,7 @@ session_start();
   <form id="containerFb">
     <p >
       <label id="label" for="feedback"><b>Votre commentaire:</b></label>
-      <textarea id="feedback" rows="5" cols="38" maxlength="255" name='content'></textarea>
+      <textarea id="feedback" rows="5" maxlength="255" name='content'></textarea>
     </p>
     <button id="bouton" type="button" onclick="send()">Envoi</button>
   </form>
